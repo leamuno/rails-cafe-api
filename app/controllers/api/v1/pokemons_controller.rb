@@ -1,12 +1,12 @@
 class Api::V1::PokemonsController < ApplicationController
   def index
-    if params[:name].present?
-      @pokemons = Pokemon.where('name ILIKE ?', "%#{params[:name]}%")
+    if params[:title].present?
+      @pokemons = Pokemon.where('name ILIKE ?', "%#{params[:title]}%")
     else
       @pokemons = Pokemon.all
     end
     # Putting the most recently created pokemons first
-    render json: @pokemons.order(created_at: :desc)
+    render json: @pokemons.order(created_at: :asc)
   end
 
   def create
@@ -21,6 +21,6 @@ class Api::V1::PokemonsController < ApplicationController
   private
 
   def pokemon_params
-    params.require(:pokemon).permit(:name, :encounter, :pictures[], types: {})
+    params.require(:pokemon).permit(:name, :encounter, :pictures, types: [])
   end
 end

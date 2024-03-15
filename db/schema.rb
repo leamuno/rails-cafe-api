@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_14_093441) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_14_083015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "pokemons", force: :cascade do |t|
     t.string "name"
+    t.integer "dex_id"
     t.string "encounter"
     t.string "pictures", array: true
-    t.jsonb "types"
+    t.string "types", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "dex_id"
   end
 
 end

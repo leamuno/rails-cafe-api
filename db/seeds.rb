@@ -24,16 +24,16 @@ pokemons.each do |pokemon_hash|
     pictures: [
       pokemon_hash['sprites']["other"]["official-artwork"]["front_default"],
       pokemon_hash['sprites']["other"]["official-artwork"]["front_shiny"]
-    ],
-    types: pokemon_hash['types']
+    ]
   )
   json_encounters = URI.open(pokemon_hash['location_area_encounters']).read
   encounters = JSON.parse(json_encounters)
   if encounters.empty?
-    pokemon.encounter = "It can't encountered"
+    pokemon.encounter = "no encounter"
   else
     pokemon.encounter = encounters[0]["location_area"]["name"].gsub("-", " ")
   end
+  pokemon.types = pokemon_hash["types"].map { |type| type["type"]["name"] }
   pokemon.save
 end
 p Pokemon.last
